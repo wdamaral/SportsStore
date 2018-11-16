@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,10 @@ namespace SportsStore.Controllers
             repository = repoService;
             cart = cartService;
         }
-
+        [Authorize]
         public ViewResult List() =>
             View(repository.Orders.Where(o => !o.Shipped));
+        [Authorize]
         [HttpPost]
         public IActionResult MarkShipped(int orderID)
         {
